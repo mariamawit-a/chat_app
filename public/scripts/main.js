@@ -15,39 +15,90 @@
  */
 'use strict';
 
+const messageListElement = document.getElementById('messages');
+const messageFormElement = document.getElementById('message-form');
+const messageInputElement = document.getElementById('message');
+const submitButtonElement = document.getElementById('submit');
+const imageButtonElement = document.getElementById('submitImage');
+const imageFormElement = document.getElementById('image-form');
+const mediaCaptureElement = document.getElementById('mediaCapture');
+const userPicElement = document.getElementById('user-pic');
+const userNameElement = document.getElementById('user-name');
+const signInButtonElement = document.getElementById('sign-in');
+const signOutButtonElement = document.getElementById('sign-out');
+const signInSnackbarElement = document.getElementById('must-signin-snackbar');
+
+submitButtonElement.addEventListener('click', function(){
+  let p = document.createElement("p");
+
+  p.innerText = messageInputElement.value;
+  messageListElement.append(p);
+  messageInputElement.value = "";
+})
+
 // Signs-in Friendly Chat.
 function signIn() {
-  alert('TODO: Implement Google Sign-In');
-  // TODO 1: Sign in Firebase with credential from the Google user.
+  console.log("sign in");
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = result.credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+    // ...
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
 }
 
 // Signs-out of Friendly Chat.
 function signOut() {
-  // TODO 2: Sign out of Firebase.
+    firebase.auth().signOut();
 }
 
 //Initialize firebase.
 function initFirebase(){
   // TODO
+  firebase.initializeApp({
+    apiKey: "AIzaSyCGqIQqnCx-Hg2Bnx-__cVWFBnuv6sGffk",
+    authDomain: "selam-7ae8f.firebaseapp.com",
+    databaseURL: "https://selam-7ae8f.firebaseio.com",
+    projectId: "selam-7ae8f",
+    storageBucket: "selam-7ae8f.appspot.com",
+    messagingSenderId: "804364333100",
+    appId: "1:804364333100:web:55ddb72596a3c946d5a189",
+    measurementId: "G-EF1FEK7TZ2"
+  });
 }
 // Initiate firebase auth.
 function initFirebaseAuth() {
   // TODO 3: Initialize Firebase.
+  firebase.auth().onAuthStateChanged(authStateObserver);
 }
 
 // Returns the signed-in user's profile Pic URL.
 function getProfilePicUrl() {
   // TODO 4: Return the user's profile pic URL.
+  return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png';
 }
 
 // Returns the signed-in user's display name.
 function getUserName() {
   // TODO 5: Return the user's display name.
+  return firebase.auth().currentUser.displayName;
 }
 
 // Returns true if a user is signed-in.
 function isUserSignedIn() {
   // TODO 6: Return true if a user is signed-in.
+  return !!firebase.auth().currentUser;
 }
 
 // Saves a new message on the Firebase DB.
@@ -284,18 +335,8 @@ function checkSetup() {
   }
 }
 // Shortcuts to DOM Elements.
-var messageListElement;
-var messageFormElement;
-var messageInputElement;
-var submitButtonElement;
-var imageButtonElement;
-var imageFormElement;
-var mediaCaptureElement;
-var userPicElement;
-var userNameElement;
-var signInButtonElement;
-var signOutButtonElement;
-var signInSnackbarElement;
+
+
 
 // initialize Firebase
 initFirebase();
@@ -325,3 +366,13 @@ initFirebaseAuth();
 
 // We load currently existing chat messages and listen to new ones.
 loadMessages();
+
+
+// service firebase.storage {
+//   match /b/{bucket}/o {
+//     match /{allPaths=**} {
+//       allow read, write: if request.auth != null;
+//     }
+//   }
+// }
+
