@@ -58,21 +58,21 @@
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
   <!-- Header section containing logo -->
-  <header class="mdl-layout__header mdl-color-text--white mdl-color--cyan">
+  <header class="mdl-layout__header mdl-color-text--yellow-600 mdl-color--cyan-50">
     <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
       <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-        <h3><i class="material-icons">public</i> Selam </h3>
+        <h3><i class="material-icons">mood</i> Selam </h3>
       </div>
       <div id="user-container">
-        <div id="user-pic" hidden></div>
-        <div id="user-name" hidden></div>
-        <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">Sign-out</button>
-        <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white"><i class="material-icons">account_circle</i>Sign-in with Google</button>
+        <div id="user-pic" hidden="true"></div>
+        <div id="user-name" hidden="true"></div>
+        <button hidden="true" id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--yellow-600">Sign-out</button>
+        <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--yellow-600"><i class="material-icons">account_circle</i>Sign-in with Google</button>
       </div>
     </div>
   </header>
 
-  <main class="mdl-layout__content mdl-color--grey-100">
+  <main class="mdl-layout__content">
     <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
 
       <!-- Messages container -->
@@ -85,11 +85,11 @@
               <input class="mdl-textfield__input" type="text" id="message">
               <label class="mdl-textfield__label" for="message">Message...</label>
             </div>
-            <button id="submit" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color-text--cyan-800">Send</button>
+            <button id="submit" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color-text--cyan-200">Send</button>
           </form>
           <form id="image-form" action='#'>
             <input id="mediaCapture" type="file" accept="iamge/*" capture="camera">
-            <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--cyan-800 mdl-color-text--white" data-upgraded=",MaterialButton,MaterialRipple">
+            <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--cyan-200 mdl-color-text--white" data-upgraded=",MaterialButton,MaterialRipple">
               <i class="material-icons">image</i>
               <span class="mdl-button_ripple-conatiner">
                 <span class="mdl-ripple"></span>>
