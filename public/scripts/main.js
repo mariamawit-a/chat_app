@@ -22,19 +22,21 @@ const submitButtonElement = document.getElementById('submit');
 const imageButtonElement = document.getElementById('submitImage');
 const imageFormElement = document.getElementById('image-form');
 const mediaCaptureElement = document.getElementById('mediaCapture');
+const clearmessage = document.getElementById('clear');
 const userPicElement = document.getElementById('user-pic');
 const userNameElement = document.getElementById('user-name');
 const signInButtonElement = document.getElementById('sign-in');
 const signOutButtonElement = document.getElementById('sign-out');
 const signInSnackbarElement = document.getElementById('must-signin-snackbar');
+const roomElement = document.getElementsByClassName('rooms');
+const chatrooms = ["Room A", "Room B", "Room C"];
+const collections = ["messages-A", "messages-B", "messages-C"];
+var currentRoom = 0;
+roomElement[currentRoom].style.backgroundColor = 'yellow';
+roomElement[currentRoom].style.color = 'rgb(18, 205, 205)';
+roomElement[currentRoom].style["border-color"] = 'rgb(18, 205, 205)';
 
-// submitButtonElement.addEventListener('click', function(){
-//   let p = document.createElement("p");
 
-//   p.innerText = messageInputElement.value;
-//   messageListElement.append(p);
-//   //messageInputElement.value = "";
-// })
 
 // Signs-in Friendly Chat.
 function signIn() {
@@ -101,10 +103,30 @@ function isUserSignedIn() {
   return !!firebase.auth().currentUser;
 }
 
+function changeroom(i){
+  currentRoom = i;
+
+  Object.keys(roomElement).forEach(function(key){
+      if(key==i){
+        roomElement[key].style.backgroundColor = 'yellow';
+        roomElement[key].style.color = 'rgb(18, 205, 205)';
+        roomElement[key].style["border-color"] = 'rgb(18, 205, 205)';
+      }
+      else{
+        roomElement[key].style.backgroundColor = 'rgb(18, 205, 205)';
+        roomElement[key].style.color = 'yellow';
+        roomElement[key].style["border-color"] = 'yellow';
+      }
+    });
+
+  console.log(i);
+  messageListElement.innerHTML="";
+  loadMessages();
+}
 // Saves a new message on the Firebase DB.
 function saveMessage(messageText) {
   // TODO 7: Push a new message to Firebase.
-  return firebase.firestore().collection('messages').add({
+  return firebase.firestore().collection(collections[currentRoom]).add({
     name: getUserName(),
     text: messageText,
     profilePicUrl: getProfilePicUrl(),
@@ -118,7 +140,7 @@ function saveMessage(messageText) {
 function loadMessages() {
   
   var query = firebase.firestore()
-                .collection('messages')
+                .collection(collections[currentRoom])
                 .orderBy('timestamp', 'desc')
                 .limit(12);
 
@@ -135,12 +157,33 @@ function loadMessages() {
   });
 }
 
+function clearout(e){
+  console.log("clearing");
+  
+  firebase.firestore().collection(collections[currentRoom]).get()
+  .then(function(querySnapshot) {
+        // Once we get the results, begin a batch
+        var batch = firebase.firestore().batch();
+
+        querySnapshot.forEach(function(doc) {
+            // For each doc, add a delete operation to the batch
+            batch.delete(doc.ref);
+        });
+
+        // Commit the batch
+        batch.commit();
+  }).then(function() {
+      // Delete completed!
+      // ...
+  }); 
+}
+
 // Saves a new message containing an image in Firebase.
 // This first saves the image in Firebase storage.
 function saveImageMessage(file) {
   // TODO 9: Posts a new image as a message.
   // 1 - We add a message with a loading icon that will get updated with the shared image.
-  firebase.firestore().collection('messages').add({
+  firebase.firestore().collection(collections[currentRoom]).add({
     name: getUserName(),
     imageUrl: LOADING_IMAGE_URL,
     profilePicUrl: getProfilePicUrl(),
@@ -389,10 +432,18 @@ initFirebase();
 // Checks that Firebase has been imported.
 checkSetup();
 
+Object.keys(roomElement).forEach(function(key){
+  roomElement[key].addEventListener('click', function(){ changeroom(key); } );
+  });
+
+
 // Saves message on form submit.
 messageFormElement.addEventListener('submit', onMessageFormSubmit);
 signOutButtonElement.addEventListener('click', signOut);
 signInButtonElement.addEventListener('click', signIn);
+
+//delets messages
+clearmessage.addEventListener('click', clearout);
 
 // Toggle for the button.
 messageInputElement.addEventListener('keyup', toggleButton);

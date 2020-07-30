@@ -58,16 +58,16 @@
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
   <!-- Header section containing logo -->
-  <header class="mdl-layout__header mdl-color-text--yellow-600 mdl-color--cyan-50">
+  <header class="mdl-layout__header mdl-color-text--yellow-700 mdl-color--white">
     <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-      <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-        <h3><i class="material-icons">mood</i> Selam </h3>
+      <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--10-col-desktop">
+        <h3 class="mdl-color-text--cyan-500"><i class="material-icons">wb_sunny</i> Selam </h3>
       </div>
       <div id="user-container">
         <div id="user-pic" hidden="true"></div>
         <div id="user-name" hidden="true"></div>
-        <button hidden="true" id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--yellow-600">Sign-out</button>
-        <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--yellow-600"><i class="material-icons">account_circle</i>Sign-in with Google</button>
+        <button hidden="true" id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--grey-200 mdl-color-text--yellow-700">Sign-out</button>
+        <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--grey-200 mdl-color-text--yellow-700"><i class="material-icons">account_circle</i>Sign-in with Google</button>
       </div>
     </div>
   </header>
@@ -76,26 +76,33 @@
     <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
 
       <!-- Messages container -->
-      <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--10-col-desktop">
+      <div id="chatrooms">
+        <button id="rooma" class="rooms">Room A</button>
+        <button id="roomb" class="rooms">Room B</button>
+        <button id="roomc" class="rooms">Room C</button>
+        <button id="more" class="rooms">+</button>
+      </div>
+
+      <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--10-col-desktop">
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
           <div id="messages"></div>
           
           <form id="message-form" action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <div class="mdl-textfield mdl-js-textfield mdl-color-text--cyan-200 mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" id="message">
               <label class="mdl-textfield__label" for="message">Message...</label>
             </div>
-            <button id="submit" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color-text--cyan-200">Send</button>
+            <button id="submit" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--cyan-200 mdl-color--yellow-200">Send</button>
           </form>
-          <form id="image-form" action='#'>
-            <input id="mediaCapture" type="file" accept="iamge/*" capture="camera">
-            <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--cyan-200 mdl-color-text--white" data-upgraded=",MaterialButton,MaterialRipple">
-              <i class="material-icons">image</i>
-              <span class="mdl-button_ripple-conatiner">
-                <span class="mdl-ripple"></span>>
-              </span>
-            </button>
-          </form>
+          <div id="buttons">
+            <form id="image-form" action='#'>
+              <input id="mediaCapture" type="file" accept="iamge/*" capture="camera">
+              <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--cyan-200 mdl-color-text--white" data-upgraded=",MaterialButton,MaterialRipple">
+                <i class="material-icons">image</i>
+              </button>
+            </form>
+            <button id="clear" class="mdl-color--cyan-200 mdl-color-text--white">clear</button>
+          </div>
         </div>
       </div>
 
