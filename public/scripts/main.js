@@ -146,10 +146,11 @@ function loadMessages() {
 
   // Start listening to the query.
   query.onSnapshot(function(snapshot) {
+    let tsToMillis = firebase.firestore.Timestamp.now().toMillis();
+    let compareDate = new Date(tsToMillis - (24 * 60 * 60 * 1000));
     snapshot.docChanges().forEach(function(change) {
-      const tsToMillis = firbase.firestore.Timestamp.now().toMillis();
-      const compareDate = new Date(tsToMillis - (24 * 60 * 60 * 1000))
-      if (change.type === 'removed' || (change.doc.data().timestamp.toMillis(), "<", compareDate ) ) {
+      console.log(Date.parse(compareDate), change.doc.data().timestamp.toMillis());
+      if (change.type === 'removed' || (change.doc.data().timestamp.toMillis() < Date.parse(compareDate)) ) {
           deleteMessage(change.doc.id);
       } else {
           var message = change.doc.data();
