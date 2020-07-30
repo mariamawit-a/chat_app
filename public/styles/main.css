@@ -67,7 +67,7 @@ main, #messages-card {
   flex-grow: 1;
 }
 #chatrooms{
-  display: inline-flex;
+  display: flex;
   background: #fff;
   opacity: 0.8;
   flex-direction: column;
@@ -221,7 +221,7 @@ main, #messages-card {
 #mediaCapture {
   display: none;
 }
-@media screen and (max-width: 610px) {
+@media screen and (max-width: 1000px) {
   header {
     height: 113px;
     padding-bottom: 80px !important;
@@ -238,6 +238,11 @@ main, #messages-card {
     width: 33px;
     height: 33px;
     background-size: 33px;
+  }
+  #chatrooms{
+    flex-direction: row;
+    margin: 5px;
+    width: 780px;
   }
 }
 .mdl-textfield__label:after {
