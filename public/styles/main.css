@@ -242,7 +242,7 @@ main, #messages-card {
   #chatrooms{
     flex-direction: row;
     margin: 5px;
-    width: 780px;
+    width: auto;
   }
 }
 .mdl-textfield__label:after {

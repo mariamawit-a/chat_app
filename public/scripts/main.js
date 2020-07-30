@@ -147,7 +147,9 @@ function loadMessages() {
   // Start listening to the query.
   query.onSnapshot(function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
-      if (change.type === 'removed') {
+      const tsToMillis = firbase.firestore.Timestamp.now().toMillis();
+      const compareDate = new Date(tsToMillis - (24 * 60 * 60 * 1000))
+      if (change.type === 'removed' || (change.doc.data().timestamp.toMillis(), "<", compareDate ) ) {
           deleteMessage(change.doc.id);
       } else {
           var message = change.doc.data();
