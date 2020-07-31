@@ -28,10 +28,13 @@ const userNameElement = document.getElementById('user-name');
 const signInButtonElement = document.getElementById('sign-in');
 const signOutButtonElement = document.getElementById('sign-out');
 const signInSnackbarElement = document.getElementById('must-signin-snackbar');
-const roomElement = document.getElementsByClassName('rooms');
-const chatrooms = ["Room A", "Room B", "Room C"];
-const collections = ["messages-A", "messages-B", "messages-C"];
-var currentRoom = 0;
+const chatrooms = document.getElementById('chatrooms');
+let roomElement = document.getElementsByClassName('rooms');
+
+addbuttonevent();
+let collections = ["messages-A", "messages-B", "messages-C"];
+let currentRoom = 1;
+let numRooms = 3;
 roomElement[currentRoom].style.backgroundColor = 'yellow';
 roomElement[currentRoom].style.color = 'rgb(18, 205, 205)';
 roomElement[currentRoom].style["border-color"] = 'rgb(18, 205, 205)';
@@ -104,29 +107,54 @@ function isUserSignedIn() {
 }
 
 function changeroom(i){
-  currentRoom = i;
+  currentRoom = parseInt(i);
+  console.log(currentRoom);
+
+  
+  messageListElement.innerHTML="";
+
+  if(i != 0){
+    loadMessages();
+  }
+  else if(numRooms>5){
+    alert("Maximum amount of room reached.");
+  }
+  else{
+    //chatroom
+    const newbtn = document.createElement('button');
+    newbtn.setAttribute("id", `room${String.fromCharCode(65+numRooms)}`);
+    newbtn.setAttribute("class", "rooms");
+    newbtn.innerHTML = `Room ${String.fromCharCode(65+numRooms)}`;
+    console.log(numRooms);
+    chatrooms.appendChild(newbtn);
+    collections.push(`messages-${String.fromCharCode(65+numRooms)}`);
+    
+    numRooms+=1;
+    currentRoom = numRooms;
+    addbuttonevent()
+    loadMessages();
+    console.log(chatrooms);
+  }
 
   Object.keys(roomElement).forEach(function(key){
-      if(key==i){
-        roomElement[key].style.backgroundColor = 'yellow';
-        roomElement[key].style.color = 'rgb(18, 205, 205)';
-        roomElement[key].style["border-color"] = 'rgb(18, 205, 205)';
-      }
-      else{
-        roomElement[key].style.backgroundColor = 'rgb(18, 205, 205)';
-        roomElement[key].style.color = 'yellow';
-        roomElement[key].style["border-color"] = 'yellow';
-      }
-    });
+    if(key==currentRoom){
+      roomElement[key].style.backgroundColor = 'yellow';
+      roomElement[key].style.color = 'rgb(18, 205, 205)';
+      roomElement[key].style["border-color"] = 'rgb(18, 205, 205)';
+    }
+    else{
+      roomElement[key].style.backgroundColor = 'rgb(18, 205, 205)';
+      roomElement[key].style.color = 'yellow';
+      roomElement[key].style["border-color"] = 'yellow';
+    }
+  });
 
-  console.log(i);
-  messageListElement.innerHTML="";
-  loadMessages();
+  
 }
 // Saves a new message on the Firebase DB.
 function saveMessage(messageText) {
   // TODO 7: Push a new message to Firebase.
-  return firebase.firestore().collection(collections[currentRoom]).add({
+  return firebase.firestore().collection(collections[currentRoom-1]).add({
     name: getUserName(),
     text: messageText,
     profilePicUrl: getProfilePicUrl(),
@@ -140,7 +168,7 @@ function saveMessage(messageText) {
 function loadMessages() {
   
   var query = firebase.firestore()
-                .collection(collections[currentRoom])
+                .collection(collections[currentRoom-1])
                 .orderBy('timestamp', 'desc')
                 .limit(12);
 
@@ -163,7 +191,7 @@ function loadMessages() {
 function clearout(e){
   console.log("clearing");
   
-  firebase.firestore().collection(collections[currentRoom]).get()
+  firebase.firestore().collection(collections[currentRoom-1]).get()
   .then(function(querySnapshot) {
         // Once we get the results, begin a batch
         var batch = firebase.firestore().batch();
@@ -186,7 +214,7 @@ function clearout(e){
 function saveImageMessage(file) {
   // TODO 9: Posts a new image as a message.
   // 1 - We add a message with a loading icon that will get updated with the shared image.
-  firebase.firestore().collection(collections[currentRoom]).add({
+  firebase.firestore().collection(collections[currentRoom-1]).add({
     name: getUserName(),
     imageUrl: LOADING_IMAGE_URL,
     profilePicUrl: getProfilePicUrl(),
@@ -435,10 +463,14 @@ initFirebase();
 // Checks that Firebase has been imported.
 checkSetup();
 
-Object.keys(roomElement).forEach(function(key){
-  roomElement[key].addEventListener('click', function(){ changeroom(key); } );
-  });
-
+function addbuttonevent()
+{
+  Object.keys(roomElement).forEach(function(key){
+    console.log("listener");
+    roomElement[key].addEventListener('click', function(){ 
+    changeroom(key);} );
+    });
+}
 
 // Saves message on form submit.
 messageFormElement.addEventListener('submit', onMessageFormSubmit);
