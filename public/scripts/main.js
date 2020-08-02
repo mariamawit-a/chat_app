@@ -108,15 +108,14 @@ function isUserSignedIn() {
 
 function changeroom(i){
   currentRoom = parseInt(i);
-  console.log(currentRoom);
-
-  
+ 
   messageListElement.innerHTML="";
 
   if(i != 0){
     loadMessages();
   }
-  else if(numRooms>5){
+  else if(numRooms>5 && i==0){
+
     alert("Maximum amount of room reached.");
   }
   else{
@@ -125,15 +124,14 @@ function changeroom(i){
     newbtn.setAttribute("id", `room${String.fromCharCode(65+numRooms)}`);
     newbtn.setAttribute("class", "rooms");
     newbtn.innerHTML = `Room ${String.fromCharCode(65+numRooms)}`;
-    console.log(numRooms);
     chatrooms.appendChild(newbtn);
     collections.push(`messages-${String.fromCharCode(65+numRooms)}`);
     
     numRooms+=1;
     currentRoom = numRooms;
-    addbuttonevent()
+    addbuttonevent();
     loadMessages();
-    console.log(chatrooms);
+
   }
 
   Object.keys(roomElement).forEach(function(key){
@@ -466,10 +464,14 @@ checkSetup();
 function addbuttonevent()
 {
   Object.keys(roomElement).forEach(function(key){
-    console.log("listener");
-    roomElement[key].addEventListener('click', function(){ 
-    changeroom(key);} );
-    });
+    if (roomElement[key].getAttribute('listener') !== 'true') {
+      roomElement[key].addEventListener('click', function (e) {
+          const elementClicked = e.target;
+          elementClicked.setAttribute('listener', 'true');
+          changeroom(key);
+        } );
+    }
+  });
 }
 
 // Saves message on form submit.
