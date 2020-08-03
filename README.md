@@ -1,6 +1,6 @@
 # ☀️Selam
 
-Selam is a chat application that allows user to send texts and images with other users.  
+Selam is a chat application that allows user to send texts and images that can be viewed by others.  
 
 ## User Stories
 
