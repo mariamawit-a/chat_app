@@ -17,6 +17,20 @@ The following functionality will be implemented:
 
 * [ ] User can rename chatrooms
 
+## Main functions in the main.js
+
+### ← signIn(), signOut(), initFirbase(), initFirebaseAut(), getProfileURl(), getUserName() 
+
+These functions are responsible for the loging the user in and out, and retriving their name and profile picture.
+
+### ← ...
+
+...
+
+### ← ...
+
+...
+
 ## Tech/framework used
 **📜Language**
 - Vaniela JS
