@@ -1,14 +1,38 @@
-# chat_app_starter
+# ☀️Selam
 
-## Directions
-To run this project, you will need to complete the following workshops (found on Notion):
+Selam is a chat application that allows user to send texts and images with other users.  
 
-1. Project Intro -- HTML (form and header elements in index.html)
-2. DOM Elements (main.js) 
-3. Firebase initialization, config, and local serving (main.js) 
-4. Firebase authentication (main.js)
-5. Firebase hosting and deploying
-6. Firebase Firestore (main.js)
+## User Stories
+
+The following functionality is complete:
+
+* [x] User can login using their google account
+* [x] User can send text messages
+* [x] User can send images
+* [x] User can create multiple chatrooms
+* [x] User can clear all the texts
+
+The following functionality will be implemented:
+
+* [ ] User can rename chatrooms
+## Tech/framework used
+**📜Language**
+- Vaniela JS
+- HTML/CSS
+
+**🚀Platform**
+- Firebase
+
+**👩🏾‍💻IDE**
+- VS
+
+## Video Walkthrough 
+
+Here's a walkthrough of implemented user stories:
+
+<img src="https://imagizer.imageshack.com/img924/9345/aIvB3Z.gif" width="100%"/>
+
+GIF created with [ezgif](https://ezgif.com).
 
 ## Credits
-This tutorial was adapted from Google Codelab. 
+Tutorial adapted from Google Codelab. 
