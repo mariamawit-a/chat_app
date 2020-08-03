@@ -30,7 +30,7 @@ The following functionality will be implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src="https://imagizer.imageshack.com/img924/9345/aIvB3Z.gif" width="100%"/>
+<img src="https://imagizer.imageshack.com/img924/9456/uUuVsp.gif" width="100%"/>
 
 GIF created with [ezgif](https://ezgif.com).
 
