@@ -17,24 +17,25 @@ The following functionality will be implemented:
 
 * [ ] User can rename chatrooms
 
-## Main functions in the main.js
+## Main functions
 
 ### ← signIn(), signOut(), initFirbase(), initFirebaseAut(), getProfileURl(), getUserName() 
 
-These functions are responsible for the loging the user in and out, and retriving their name and profile picture.
+These functions are responsible for connecting to firbase, and signing the user in and retriving their name and profile picture.
 
-### ← ...
+### ← addbuttonevent()
 
-...
+This function associates room with its own collection of messages.
 
-### ← ...
+### ← changeroom(), loadrooms(), displayrooms(), saveRoom(), saveMessage(), saveImageMessage(), loadMessages(), createAndInsertMessage(), displayMessage() 
 
-...
+These functions are responsible for keeping track of the messages sent in each room and displaying it appropriately.
 
-## Tech/framework used
+## Tools used
 **📜Language**
 - Vaniela JS
 - HTML/CSS
+- Material Design
 
 **🚀Platform**
 - Firebase
@@ -49,6 +50,13 @@ Here's a walkthrough of implemented user stories:
 <img src="/selam.gif" width="100%"/>
 
 GIF created with [cloudconvert](https://cloudconvert.com).
+
+## Getting Started 
+- Fork and clone the repo on your local machine.  
+- Open the terminal and navigate to the root folder. 
+- Run `firebase serve --only hosting` on the command line to start serving the app from [http://localhost:5000](http://localhost:5000/), and then open it in your browser."
+
+[Deployed app](https://selam-7ae8f.web.app/) 
 
 ## Credits
 Tutorial adapted from Google Codelab. 
